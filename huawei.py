@@ -347,23 +347,7 @@ def deal_pic():
 """
 
 def get_sneak_result():
-    while True:
-        try:
-            # 输入正整数
-            n = int(input())
-            row = 1
-            for i in range(1, n + 1):
-                row = i - 1 + row
-                col = 0
-                for j in range(1, n - i + 1 + 1):
-                    if j == 1:
-                        col = row
-                    else:
-                        col = col + i + (j - 1)
-                    print(col, end=" ")
-                print()
-        except:
-            break
+    pass
 
 
 """
@@ -729,4 +713,24 @@ def grade_sort():
                 print(i[0], i[1])
         except:
             break
+
+
+"""
+    整形数组合并
+"""
+def interger_merge():
+    while True:
+        try:
+            n1, nums1 = input(),input()
+            n2, nums2 = input(),input()
+            new_s =  sorted(list(map(int,set((nums1 + " "+ nums2).split()))),reverse=False)
+            print("".join(map(str, new_s)))
+        except:
+            break
+
+"""
+    超长正整数相加
+"""
+
+
 
