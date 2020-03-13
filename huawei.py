@@ -347,23 +347,7 @@ def deal_pic():
 """
 
 def get_sneak_result():
-    while True:
-        try:
-            # 输入正整数
-            n = int(input())
-            row = 1
-            for i in range(1, n + 1):
-                row = i - 1 + row
-                col = 0
-                for j in range(1, n - i + 1 + 1):
-                    if j == 1:
-                        col = row
-                    else:
-                        col = col + i + (j - 1)
-                    print(col, end=" ")
-                print()
-        except:
-            break
+    pass
 
 
 """
@@ -730,6 +714,7 @@ def grade_sort():
         except:
             break
 
+
 """
     矩阵乘法
 """
@@ -760,19 +745,44 @@ def maxtrix_times():
             break
 
 """
+    整形数组合并
+"""
+def interger_merge():
+    while True:
+        try:
+            n1, nums1 = input(),input()
+            n2, nums2 = input(),input()
+            new_s =  sorted(list(map(int,set((nums1 + " "+ nums2).split()))),reverse=False)
+            print("".join(map(str, new_s)))
+        except:
+            break
+
+
+"""
     表示数字
 """
 
-import re
-while True:
-    try:
-        s = input()
-        nums = re.findall(r"[0-9]{1,}", s)
-        new_s = ""
-        for i in re.finditer(r"[0-9]{1,}", s):
-            new_s = s[:i.start()] + "*" + s[i.start():i.start() + len(i.group())] + "*"
-
-
-        print(new_s)
-    except:
-        break
+def number_expression():
+    import re
+    while True:
+        try:
+            s = input()
+            nums = re.findall(r"[0-9]{1,}", s)
+            new_s = ""
+            index_ = []
+            for i in re.finditer(r"[0-9]{1,}", s):
+                index_ .append (i.start())
+                index_.append(i.start() + len(i.group()))
+            t = 0
+            for i in range(len(s)):
+                if i not in index_:
+                    new_s += s[i]
+                else:
+                    t = index_.pop(0)
+                    new_s += "*"
+                    new_s += s[i]
+            if index_ != [] and index_.pop(0) == len(s):
+                new_s += "*"
+            print(new_s)
+        except:
+            break
