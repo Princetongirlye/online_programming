@@ -730,3 +730,49 @@ def grade_sort():
         except:
             break
 
+"""
+    矩阵乘法
+"""
+def maxtrix_times():
+    while True:
+        try:
+            x,y,z = int(input()),int(input()), int(input())
+            maxtrix_1 = [[0]*y for _ in range(x)]
+            maxtrix_2 = [[0]*z for _ in range(y)]
+            maxtrix_3 = [[0]*z for _ in range(x)]
+            for i in range(x):
+                nums = input().split()
+                for j in range(len(nums)):
+                    maxtrix_1[i][j] = int(nums[j])
+            for i in range(y):
+                nums = input().split()
+                for j in range(len(nums)):
+                    maxtrix_2[i][j] = int(nums[j])
+            for i in range(x):
+                for j in range(z):
+                    for k in range(y):
+                        maxtrix_3[i][j] += maxtrix_1[i][k] * maxtrix_2[k][j]
+            for i in range(x):
+                for j in range(z):
+                    print(maxtrix_3[i][j], end=" ")
+                print()
+        except:
+            break
+
+"""
+    表示数字
+"""
+
+import re
+while True:
+    try:
+        s = input()
+        nums = re.findall(r"[0-9]{1,}", s)
+        new_s = ""
+        for i in re.finditer(r"[0-9]{1,}", s):
+            new_s = s[:i.start()] + "*" + s[i.start():i.start() + len(i.group())] + "*"
+
+
+        print(new_s)
+    except:
+        break
