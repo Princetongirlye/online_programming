@@ -718,31 +718,31 @@ def grade_sort():
 """
     矩阵乘法
 """
-def maxtrix_times():
-    while True:
-        try:
-            x,y,z = int(input()),int(input()), int(input())
-            maxtrix_1 = [[0]*y for _ in range(x)]
-            maxtrix_2 = [[0]*z for _ in range(y)]
-            maxtrix_3 = [[0]*z for _ in range(x)]
-            for i in range(x):
-                nums = input().split()
-                for j in range(len(nums)):
-                    maxtrix_1[i][j] = int(nums[j])
-            for i in range(y):
-                nums = input().split()
-                for j in range(len(nums)):
-                    maxtrix_2[i][j] = int(nums[j])
-            for i in range(x):
-                for j in range(z):
-                    for k in range(y):
-                        maxtrix_3[i][j] += maxtrix_1[i][k] * maxtrix_2[k][j]
-            for i in range(x):
-                for j in range(z):
-                    print(maxtrix_3[i][j], end=" ")
-                print()
-        except:
-            break
+# def maxtrix_times():
+#     while True:
+#         try:
+#             x,y,z = int(input()),int(input()), int(input())
+#             maxtrix_1 = [[0]*y for _ in range(x)]
+#             maxtrix_2 = [[0]*z for _ in range(y)]
+#             maxtrix_3 = [[0]*z for _ in range(x)]
+#             for i in range(x):
+#                 nums = input().split()
+#                 for j in range(len(nums)):
+#                     maxtrix_1[i][j] = int(nums[j])
+#             for i in range(y):
+#                 nums = input().split()
+#                 for j in range(len(nums)):
+#                     maxtrix_2[i][j] = int(nums[j])
+#             for i in range(x):
+#                 for j in range(z):
+#                     for k in range(y):
+#                         maxtrix_3[i][j] += maxtrix_1[i][k] * maxtrix_2[k][j]
+#             for i in range(x):
+#                 for j in range(z):
+#                     print(maxtrix_3[i][j], end=" ")
+#                 print()
+#         except:
+#             break
 
 """
     整形数组合并
@@ -761,6 +761,7 @@ def interger_merge():
 """
     表示数字
 """
+
 
 def number_expression():
     import re
@@ -786,3 +787,53 @@ def number_expression():
             print(new_s)
         except:
             break
+
+"""
+    长正数相加
+"""
+
+def long_interger_add():
+    while True:
+        try:
+            long_1 = input()[::-1]
+            long_2 = input()[::-1]
+            new_long = []
+            if len(long_2) > len(long_1):
+                long_1, long_2 = long_2, long_1
+            print(long_1)
+            print(long_2)
+            j = 0
+            for i in range(len(long_1)):
+                if i >= len(long_2):
+                    a = int(long_1[i]) + j
+                else:
+                    a = int(long_1[i]) + int(long_2[i]) + j
+
+                if a >= 10:
+                    j = 1
+                    new_long.append(str(a - 10))
+                else:
+                    j = 0
+                    new_long.append(str(a))
+            if j != 0:
+                new_long.append(str(j))
+            print("".join(new_long[::-1]))
+        except:
+            break
+
+
+"""
+    高精度
+"""
+def get_numbers_add():
+    while True:
+        try:
+            print(int(input()) + int(input()))
+        except:
+            break
+
+
+"""
+    查找组成一个偶数最接近的两个素数
+"""
+
