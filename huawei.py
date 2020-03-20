@@ -788,6 +788,7 @@ def number_expression():
         except:
             break
 
+
 """
     长正数相加
 """
@@ -841,4 +842,29 @@ def get_numbers_add():
 """
     学英语
 """
+
+
+"""
+    识别有效的IP地址和掩码进行分类统计
+"""
+
+"""
+    字母漂亮度
+"""
+while True:
+    try:
+        n = int(input())
+        for i in range(n):
+            dic = {}
+            sum = 0
+            j = 26
+            strs = input()
+            for s in strs:
+                dic[s] = dic.setdefault(s, 0) + 1
+            for k, v in sorted(dic.items(), key=lambda x:x[1], reverse=True):
+                sum += int(v) * j
+                j -= 1
+            print(sum)
+    except:
+        break
 
