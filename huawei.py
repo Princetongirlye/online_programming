@@ -851,20 +851,46 @@ def get_numbers_add():
 """
     字母漂亮度
 """
-while True:
+def get_beautiful():
+    while True:
+        try:
+            n = int(input())
+            for i in range(n):
+                dic = {}
+                sum = 0
+                j = 26
+                strs = input()
+                for s in strs:
+                    dic[s] = dic.setdefault(s, 0) + 1
+                for k, v in sorted(dic.items(), key=lambda x:x[1], reverse=True):
+                    sum += int(v) * j
+                    j -= 1
+                print(sum)
+        except:
+            break
+
+
+"""
+    按字节截取字符串
+"""
+def get_nbyte():
     try:
-        n = int(input())
-        for i in range(n):
-            dic = {}
-            sum = 0
-            j = 26
-            strs = input()
-            for s in strs:
-                dic[s] = dic.setdefault(s, 0) + 1
-            for k, v in sorted(dic.items(), key=lambda x:x[1], reverse=True):
-                sum += int(v) * j
-                j -= 1
-            print(sum)
+        while True:
+            s, nbyte = input().split()
+            new_s = ""
+            j = 0
+            for i in s:
+                j += len(i.encode("gb2312"))
+                if j <= int(nbyte):
+                    new_s += i
+            print(new_s)
     except:
-        break
+        pass
+
+
+"""
+    四则运算
+"""
+def get_calcuate():
+    print(eval(input()))
 
