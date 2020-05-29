@@ -200,12 +200,13 @@ def test_1014():
     s3 = input()
     s4 = input()
     DAY = {"A": "MON", "B": "TUE", "C": "WED", "D": "THU", "E": "FRI", "F": "SAT", "G": "SUN"}
-    HH = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I","J", "K", "L","M",
+    HH = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+          "M",
           "N"]
     s = []
     for count in range(min(len(s1), len(s2))):
         if s1[count] == s2[count]:
-            if s !=[] and s1[count] in HH:
+            if s != [] and s1[count] in HH:
                 s.append(str(HH.index(s1[count])).rjust(2, "0"))
                 break
             elif s1[count] in DAY.keys():
@@ -219,8 +220,209 @@ def test_1014():
     print("%s %s:%s" % (s[0], s[1], s[2]))
 
 
-
-# 德才论
+# 1015  德才论
 
 def test_1015():
     pass
+
+
+def test_1021():
+    n = input()
+    from collections import Counter
+    r = sorted(Counter(n).items(), key=lambda x: x[0])
+    for i in r:
+        print(str(i[0]) + ":" + str(i[1]))
+
+
+def test_1022():
+    a, b, n = input().split()
+    c = int(a) + int(b)
+    n = int(n)
+
+    digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F']
+    res = []
+
+    while True:
+        s = c // n
+        y = c % n
+        res.append(y)
+        if s == 0:
+            break
+        c = s
+    for i in res[::-1]:
+        print(str(digits[i]), end="")
+
+
+# test_1023 最小的数
+def test_1023():
+    num = list(map(int, input().split()))
+    ans = []
+    for d, n in enumerate(num[1:], 1):
+        if n != 0:
+            ans.append(str(d))
+            num[d] -= 1
+            break
+    print(ans)
+    print(num)
+    for d, n in enumerate(num):
+        ans.append(n * str(d))
+    print(ans)
+
+
+def test_1024():
+    a, b = input().split("E")
+    before = a[0]
+    after = b[0]
+    a = a[1:]
+    b = int(b[1:])
+    res = ""
+    if after == "-":
+        n1, n2 = a.split(".")
+        res = '0' + "." + '0' * (b - 1) + n1 + n2
+    else:
+        n1, n2 = a.split(".")
+        if b < len(n2):
+            res = n1 + n2[:b] + "." + n2[b:]
+        else:
+            res = n1 + n2 + "0" * (b - len(n2))
+    if before == "-":
+        print("-" + res)
+    else:
+        print(res)
+
+
+def test_1027():
+    n, sign = input().split()
+    n = int(n)
+    total = 3
+    if n < 7:
+        print(n)
+    else:
+        count = 1
+        j = 1
+        while True:
+            if n > 1 + total * 2:
+                n = n - (1 + total * 2)
+                count += 1
+                for i in range(count):
+                    total += i * 2
+            else:
+                if count == 2:
+                    count -= 1
+                break
+            count = j
+        for i in range(count, -1, -1):
+            print(" " * (abs(count - i)) + sign * (3 + 2 * (i - 1)))
+        for i in range(count):
+            print(" " * (count - 1) + sign * (3 + 2 * i))
+        print(n)
+
+
+# 测试点5-运行超时
+def test_1028():
+    import datetime
+
+    n = int(input())
+    largest = datetime.date(1814, 9, 6)
+    youngest = datetime.date(2014, 9, 6)
+    max_year = largest
+    min_year = youngest
+    l = ""
+    y = ""
+    num = 0
+    for i in range(n):
+        name, s = input().split()
+        year, month, day = s.split("/")
+        year = int(year)
+        month = int(month)
+        day = int(day)
+        t = datetime.date(year, month, day)
+        if year < 1814 or year > 2014:
+            pass
+        elif (t - max_year).days < 0 or (t - min_year).days > 0:
+            pass
+        else:
+            num += 1
+            if (t - largest).days >= 0:
+                largest = datetime.date(year, month, day)
+                y = name
+            if (t - youngest).days <= 0:
+                youngest = datetime.date(year, month, day)
+                l = name
+    if num == 0:
+        print(0)
+    else:
+        print(num, l, y)
+
+
+def test_1029():
+    real = input()
+    s = input()
+    bad = []
+    for i in real:
+        if i.upper() not in s.upper() and i.upper() not in bad:
+            bad.append(i.upper())
+
+    print("".join(bad))
+
+
+def test_1030():
+    n, p = input().split()
+    nums = sorted(list(map(int, input().split())))
+    p = int(p)
+    count = 0
+    for i in range(len(nums)):
+        for j in range(i + count, len(nums)):
+            if p * nums[i] < nums[j]:
+                break
+            count += 1
+    print(count)
+
+
+def test_1031():
+    n = int(input())
+    weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]
+    m = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2']
+    all_passed = 0
+    for i in range(n):
+        total = 0
+        code = input()
+        if code[:17].isdigit() is False:
+            print(code)
+        else:
+            for d, j in enumerate(code[:17]):
+                total += weight[d] * int(j)
+            if code[17] != m[total % 11]:
+                print(code)
+            else:
+                all_passed += 1
+    if all_passed == n:
+        print("All passed")
+
+
+def test_1041():
+    n = int(input())
+    all = []
+    for i in range(n):
+        all.append(input())
+    m = int(input())
+    to_be = input().split()
+    dic = {}
+    for i in all:
+        tmp = i.split()
+        dic[tmp[1]] = " ".join([tmp[0], tmp[2]])
+    for j in to_be:
+        print(dic.get(j))
+
+
+def test_1042():
+    s = input().lower()
+    dic = {}
+    for i in s:
+        if i.isalpha():
+            dic[i] = dic.setdefault(i, 0) + 1
+    new1 = sorted(dic.items(), key=lambda x: (-x[1],x[0]))
+    print(new1[0][0],new1[0][1])
+
+
+test_1042()
