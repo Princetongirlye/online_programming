@@ -550,6 +550,7 @@ def test_1051():
         print("%.2lfi" % bb)
 
 
+<<<<<<< HEAD
 # 用set不会超时
 def test_1087():
     n = int(input())
@@ -723,7 +724,42 @@ def test_1072():
 
 
 
+
+# 用count会增加用时？！
+def test_1038():
+    # n = input()
+    # all = input().split()
+    # k = input().split()
+    # l = int(k[0])
+    # for i, v in enumerate(k[1:]):
+    #     if i + 1 == l:
+    #         print(all.count(v))
+    #     else:
+    #         print(all.count(v), end=" ")
+    n = int(input())
+    grade = {}
+    temp = input().split()
+    for i in range(n):
+        if temp[i] in grade:
+            grade[temp[i]] += 1
+        else:
+            grade[temp[i]] = 1
+    temp = input().split()
+    x = len(temp)
+    for i in range(1, x):
+        if temp[i] in grade:
+            if i != x - 1:
+                print(grade[temp[i]], end=" ")
+            else:
+                print(grade[temp[i]])
+        else:
+            if i == x - 1:
+                print(0)
+            else:
+                print(0, end=" ")
+
+
 start_time = time.time()
-test_1072()
+test_1038()
 end_time = time.time()
 print((end_time - start_time))
