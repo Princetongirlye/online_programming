@@ -361,12 +361,18 @@ def test_1027():
 # 1032  运行超时
 def test_1032():
     n = int(input())
-    dic = {}
+    all = [0 for _ in range(0, 100000)]
     for i in range(n):
-        code, score = input().split()
-        dic[code] = dic.setdefault(code, 0) + int(score)
-    first = sorted(dic.items(), key=lambda x: x[1], reverse=True)[0]
-    print(first[0], first[1])
+        a, b = input().split()
+        a = int(a) - 1
+        b = int(b)
+        all[a] += b
+    max_ = max(all)
+    print(all.index(max_) + 1, max_)
+
+    # for i in range(n):
+    #     code, score = map(int, input().split())
+    #     dic[code] = dic.setdefault(code,0 ) +  score
 
 
 # 1033 旧键盘打字
@@ -532,8 +538,8 @@ def test_1046():
 def test_1051():
     a, b, c, d = map(float, input().split())
     import math
-    aa = round((math.cos(b) * math.cos(d) + math.sin(b) * math.sin(d) * -1) * a * c,2)
-    bb = round((math.cos(b) * math.sin(d) + math.sin(b) * math.cos(d)) * a * c,2)
+    aa = round((math.cos(b) * math.cos(d) + math.sin(b) * math.sin(d) * -1) * a * c, 2)
+    bb = round((math.cos(b) * math.sin(d) + math.sin(b) * math.cos(d)) * a * c, 2)
     if aa == 0.00:
         print("0.00", end="")
     else:
@@ -544,9 +550,180 @@ def test_1051():
         print("%.2lfi" % bb)
 
 
+# 用set不会超时
+def test_1087():
+    n = int(input())
+    # 用set时间要短一些
+    a = set()
+    for i in range(1, n + 1):
+        tmp = i // 2 + i // 3 + i // 5
+        a.add(tmp)
+    # a = []
+    # for i in range(1, n+1):
+    #     tmp = i // 2 + i // 3 + i // 5
+    #     if tmp not in a:
+    #         a.append(tmp)
+    print(len(a))
+
+
+def test_1076():
+    n = int(input())
+    a = []
+    score = ["A", "B", "C", "D"]
+    wifi = ""
+    for i in range(n):
+        a.append(input())
+    for i in a:
+        for s in i.split():
+            if s.count("T"):
+                wifi += str(score.index(s[0]) + 1)
+                break
+    print(wifi)
+
+
+# 避免超时，使用str, 或者 join连接
+def test_1066():
+    m, n, a, b, grey = input().split()
+    m = int(m)
+    n = int(n)
+    a = a.rjust(3, "0")
+    b = b.rjust(3, "0")
+    grey = grey.rjust(3, "0")
+    row = []
+    for i in range(m):
+        row.append([p.rjust(3, '0') for p in input().split()])
+    for i in range(m):
+        for j in range(n):
+            if row[i][j] <= b and row[i][j] >= a:
+                row[i][j] = grey
+        print(" ".join(row[i]))
+
+
+# 1093 字符串A+B
+def test_1093():
+    a = input()
+    b = input()
+    c = a + b
+    to = list(set(c))
+    print("".join(sorted(to, key=c.index)))
+
+
+# 统计同成绩学生
+def test_1038():
+    n = input()
+    all = list(map(int, input().split()))
+    k = list(map(int, input().split()))
+    res = []
+    for i in k[1:]:
+        res.append(str(all.count(i)))
+    print(" ".join(res))
+
+
+def test_1048():
+    n, s = input().split()
+    len_s = len(s)
+    len_n = len(n)
+    if len_n > len_s:
+        s = s.rjust(len_n, '0')
+    else:
+        n = n.rjust(len_s, '0')
+    s = list(map(int, s))
+    n = list(map(int, n))
+    index_ = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'J', 'Q', 'K']
+    res = ""
+    j = 1
+    for v in s[::-1]:
+        if j % 2 != 0:
+            res += str(index_[(v + n[-j]) % 13])
+        else:
+            tmp = v - n[-j]
+            if tmp < 0:
+                res += str(tmp + 10)
+            else:
+                res += str(tmp)
+        j += 1
+    other = res[::-1]
+    for i, v in enumerate(other):
+        if v == '0':
+            continue
+        else:
+            break
+    print(other[i:])
+
+
+# 数列中的所有片段和 -- 运行超时
+def test_1049():
+    n = int(input())
+    nums = list(map(float, input().split()))
+    total = 0
+    for i in range(n):
+        for j in range(i, n):
+            pass
+    print("%.2lf" % total)
+
+
+# 朋友数
+def test_1064():
+    n = int(input())
+    nums = input().split()
+    total = set()
+    for i in range(n):
+        total.add(str(sum(map(int, list(nums[i])))))
+    print(len(total))
+    print(" ".join(sorted(total, key=lambda x: int(x))))
+
+
+# 小赌怡情，输入的问题
+def test_1071():
+    total, k = input().split()
+    total = int(total)
+    k = int(k)
+    for i in range(k):
+        if total == 0:
+            print("Game Over.")
+            break
+        else:
+            n1, b, t, n2 = input().split()
+            t = int(t)
+            b = int(b)
+            n1 = int(n1)
+            n2 = int(n2)
+            if t > total:
+                print("Not enough tokens.  Total = %d." % total)
+            else:
+                # 赌小，玩家赢
+                if (n1 > n2 and b == 0) or (n1 < n2 and b == 1):
+                    total += t
+                    print("Win %d!  Total = %d." % (t, total))
+                # 赌小，玩家输
+                else:
+                    total -= t
+                    print("Lose %d.  Total = %d." % (t, total))
+
+
+#
+def test_1072():
+    n, m = input().split()
+    m_code = input().split()
+    n = int(n)
+    dic = {}
+    for i in range(n):
+        s = input().split()
+        for j in s[2:]:
+            if j in m_code:
+                dic.setdefault(s[0], [])
+                dic[s[0]].append(j)
+    i , j = 0,0
+    for key, value in dic.items():
+        print(key + ": "+" ".join(value))
+        i += 1
+        j += len(value)
+    print(i,j)
+
+
 
 
 start_time = time.time()
-test_1051()
+test_1072()
 end_time = time.time()
 print((end_time - start_time))
