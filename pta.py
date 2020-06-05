@@ -896,6 +896,74 @@ def test_1069():
     pass
 
 
+def test_1078():
+    flag = input()
+    s = input()
+    res = ""
+    tag = ""
+    if flag == "C":
+        tag = s[0]
+        cnt = 1
+        for i in s[1:]:
+            if i == tag:
+                cnt += 1
+            else:
+                if cnt > 1:
+                    res += str(cnt) +tag
+                else:
+                    res += tag
+                tag = i
+                cnt = 1
+        if cnt > 1:
+            res += str(cnt) + tag
+        else:
+            res += tag
+
+    elif flag=="D":
+        for i in s:
+            if i.isdigit():
+                tag += i
+                continue
+            else:
+                if tag:
+                    res += int(tag) * i
+                else:
+                    res += i
+            tag = ""
+
+    print(res)
+
+
+
+
+
+
+def test_1059():
+    pass
+
+# 认真审题啊
+def test_1079():
+    a = input()
+    b = a[::-1]
+    flag = True
+    for i in range(1, 11):
+        if a == b:
+            print(a, "is a palindromic number.")
+            flag = False
+            break
+        c = str(int(a) + int(b))
+        print("{} + {} = {}".format(a, b, c))
+        if c == c[::-1]:
+            print(c,"is a palindromic number.")
+            flag = False
+            break
+        else:
+            a = c
+            b = c[::-1]
+    if flag == True:
+        print("Not found in 10 iterations.")
+
+
 
 
 
@@ -904,6 +972,6 @@ def test_1069():
 
 
 start_time = time.time()
-test_1069()
+test_1079()
 end_time = time.time()
 print((end_time - start_time))
