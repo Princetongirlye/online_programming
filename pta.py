@@ -550,7 +550,7 @@ def test_1051():
         print("%.2lfi" % bb)
 
 
-<<<<<<< HEAD
+
 # 用set不会超时
 def test_1087():
     n = int(input())
@@ -658,8 +658,10 @@ def test_1049():
     nums = list(map(float, input().split()))
     total = 0
     for i in range(n):
+        tmp = 0
         for j in range(i, n):
-            pass
+            tmp += nums[j]
+            total += tmp
     print("%.2lf" % total)
 
 
@@ -759,7 +761,149 @@ def test_1038():
                 print(0, end=" ")
 
 
+def test_1073():
+    n, m = input().split()
+    n = int(n)
+    m = int(m)
+    questions = []
+    students = []
+    scores = [ 0 for _ in range(n)]
+    for i in range(m):
+        questions.append(input().split())
+    for i in range(n):
+        students.append(input())
+
+    for i in range(n):
+        stu = students[i].split(") (")
+        score = 0
+        for j in range(m):
+            stu[j]=stu[j].replace("(","")
+            stu[j]=stu[j].replace(")", "")
+            s = stu[j].split()
+            if s[0] == questions[j][2] and ( set(questions[j][3:]) - set(s[1:]) ) == ()  :
+                score += int(questions[j][0])
+            elif s[0] >  questions[j][2]  :
+                score += 0
+            elif s[0] <= questions[j][2]:
+                pass
+
+
+
+
+
+    print(questions)
+    print(students)
+
+# 能不能好好认真审题呀
+def test_1067():
+    r_pw , n = input().split()
+    n = int(n)
+    i = 0
+    while True:
+        s = input()
+        if s == "#":
+            break
+        else:
+            i += 1
+            if i <= n:
+                if r_pw != s:
+                    print("Wrong password: %s" % s)
+                else:
+                    print("Welcome in")
+                    break
+                if i == n:
+                    print("Account locked")
+                    break
+
+
+
+def test_1044():
+    n = int(input())
+    all = []
+    low = ["tret","jan", "feb", "mar", "apr", "may", "jun", "jly", "aug", "sep", "oct", "nov", "dec"]
+    high = ["tam", "hel", "maa", "huh", "tou", "kes", "hei", "elo", "syy", "lok", "mer", "jou"]
+    for i in range(n):
+        all.append(input())
+    for hh in all:
+
+        if hh.isdigit():
+            res = []
+            hh = int(hh)
+            if hh >= 13 :
+                res.append(high[hh // 13 - 1])
+                if hh % 13 != 0:
+                    res.append(low[hh % 13])
+            else:
+                res.append(low[hh])
+            print(" ".join(res))
+
+        else:
+            total = 0
+            for i in hh.split():
+                if i in high:
+                    total += (high.index(i) + 1)*13
+                else:
+                    total += low.index(i)
+            print(total)
+
+def test_1047():
+    n = int(input())
+    dic = {}
+    for i in range(n):
+        a, b = input().split()
+        b = int(b)
+        a = a.split("-")[0]
+        dic[a] = dic.setdefault(a,0) + b
+    res = sorted(dic.items(), key=lambda x:x[1], reverse=True)[0]
+    for i,v in enumerate(res):
+        if i == 0:
+            print(v, end=" ")
+        else:
+            print(v)
+
+
+def test_1082():
+    n = int(input())
+    dic = {}
+    for i in range(n):
+        id, a, b = input().split()
+        a = abs(int(a))
+        b = abs(int(b))
+        dic[id] = dic.setdefault(id,0) + a*b
+    res = sorted(dic.items(), key=lambda x:x[1])
+    min_ = res[-1][0]
+    max_ = res[0][0]
+    print(max_,min_)
+
+def test_1083():
+    n = int(input())
+    all  = [_ for _ in range(1, n+1)]
+    s = list(map(int,input().split()))
+    dic = {}
+    for i in range(n):
+        tmp = abs(all[i] - s[i])
+        dic[tmp] = dic.setdefault(tmp, 0) + 1
+    res = sorted(dic.items(),key=lambda x:x[0],reverse=True)
+    for i in res:
+        if i[1] > 1:
+            print(i[0], i[1])
+
+def test_1084():
+    pass
+
+def test_1069():
+    # m 是总转化量 n间隔 s序号
+    pass
+
+
+
+
+
+
+
+
+
 start_time = time.time()
-test_1038()
+test_1069()
 end_time = time.time()
 print((end_time - start_time))
