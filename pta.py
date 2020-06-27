@@ -361,12 +361,18 @@ def test_1027():
 # 1032  运行超时
 def test_1032():
     n = int(input())
-    dic = {}
+    all = [0 for _ in range(0, 100000)]
     for i in range(n):
-        code, score = input().split()
-        dic[code] = dic.setdefault(code, 0) + int(score)
-    first = sorted(dic.items(), key=lambda x: x[1], reverse=True)[0]
-    print(first[0], first[1])
+        a, b = input().split()
+        a = int(a) - 1
+        b = int(b)
+        all[a] += b
+    max_ = max(all)
+    print(all.index(max_) + 1, max_)
+
+    # for i in range(n):
+    #     code, score = map(int, input().split())
+    #     dic[code] = dic.setdefault(code,0 ) +  score
 
 
 # 1033 旧键盘打字
@@ -544,6 +550,183 @@ def test_1051():
         print("%.2lfi" % bb)
 
 
+
+# 用set不会超时
+def test_1087():
+    n = int(input())
+    # 用set时间要短一些
+    a = set()
+    for i in range(1, n + 1):
+        tmp = i // 2 + i // 3 + i // 5
+        a.add(tmp)
+    # a = []
+    # for i in range(1, n+1):
+    #     tmp = i // 2 + i // 3 + i // 5
+    #     if tmp not in a:
+    #         a.append(tmp)
+    print(len(a))
+
+
+def test_1076():
+    n = int(input())
+    a = []
+    score = ["A", "B", "C", "D"]
+    wifi = ""
+    for i in range(n):
+        a.append(input())
+    for i in a:
+        for s in i.split():
+            if s.count("T"):
+                wifi += str(score.index(s[0]) + 1)
+                break
+    print(wifi)
+
+
+# 避免超时，使用str, 或者 join连接
+def test_1066():
+    m, n, a, b, grey = input().split()
+    m = int(m)
+    n = int(n)
+    a = a.rjust(3, "0")
+    b = b.rjust(3, "0")
+    grey = grey.rjust(3, "0")
+    row = []
+    for i in range(m):
+        row.append([p.rjust(3, '0') for p in input().split()])
+    for i in range(m):
+        for j in range(n):
+            if row[i][j] <= b and row[i][j] >= a:
+                row[i][j] = grey
+        print(" ".join(row[i]))
+
+
+# 1093 字符串A+B
+def test_1093():
+    a = input()
+    b = input()
+    c = a + b
+    to = list(set(c))
+    print("".join(sorted(to, key=c.index)))
+
+
+# 统计同成绩学生
+def test_1038():
+    n = input()
+    all = list(map(int, input().split()))
+    k = list(map(int, input().split()))
+    res = []
+    for i in k[1:]:
+        res.append(str(all.count(i)))
+    print(" ".join(res))
+
+
+def test_1048():
+    n, s = input().split()
+    len_s = len(s)
+    len_n = len(n)
+    if len_n > len_s:
+        s = s.rjust(len_n, '0')
+    else:
+        n = n.rjust(len_s, '0')
+    s = list(map(int, s))
+    n = list(map(int, n))
+    index_ = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'J', 'Q', 'K']
+    res = ""
+    j = 1
+    for v in s[::-1]:
+        if j % 2 != 0:
+            res += str(index_[(v + n[-j]) % 13])
+        else:
+            tmp = v - n[-j]
+            if tmp < 0:
+                res += str(tmp + 10)
+            else:
+                res += str(tmp)
+        j += 1
+    other = res[::-1]
+    for i, v in enumerate(other):
+        if v == '0':
+            continue
+        else:
+            break
+    print(other[i:])
+
+
+# 数列中的所有片段和 -- 运行超时
+def test_1049():
+    n = int(input())
+    nums = list(map(float, input().split()))
+    total = 0
+    for i in range(n):
+        tmp = 0
+        for j in range(i, n):
+            tmp += nums[j]
+            total += tmp
+    print("%.2lf" % total)
+
+
+# 朋友数
+def test_1064():
+    n = int(input())
+    nums = input().split()
+    total = set()
+    for i in range(n):
+        total.add(str(sum(map(int, list(nums[i])))))
+    print(len(total))
+    print(" ".join(sorted(total, key=lambda x: int(x))))
+
+
+# 小赌怡情，输入的问题
+def test_1071():
+    total, k = input().split()
+    total = int(total)
+    k = int(k)
+    for i in range(k):
+        if total == 0:
+            print("Game Over.")
+            break
+        else:
+            n1, b, t, n2 = input().split()
+            t = int(t)
+            b = int(b)
+            n1 = int(n1)
+            n2 = int(n2)
+            if t > total:
+                print("Not enough tokens.  Total = %d." % total)
+            else:
+                # 赌小，玩家赢
+                if (n1 > n2 and b == 0) or (n1 < n2 and b == 1):
+                    total += t
+                    print("Win %d!  Total = %d." % (t, total))
+                # 赌小，玩家输
+                else:
+                    total -= t
+                    print("Lose %d.  Total = %d." % (t, total))
+
+
+#
+def test_1072():
+    n, m = input().split()
+    m_code = input().split()
+    n = int(n)
+    dic = {}
+    for i in range(n):
+        s = input().split()
+        for j in s[2:]:
+            if j in m_code:
+                dic.setdefault(s[0], [])
+                dic[s[0]].append(j)
+    i , j = 0,0
+    for key, value in dic.items():
+        print(key + ": "+" ".join(value))
+        i += 1
+        j += len(value)
+    print(i,j)
+
+
+
+
+
 # 用count会增加用时？！
 def test_1038():
     # n = input()
@@ -568,14 +751,156 @@ def test_1038():
     for i in range(1, x):
         if temp[i] in grade:
             if i != x - 1:
-                print(grade[temp[i]], end=' ')
+                print(grade[temp[i]], end=" ")
             else:
                 print(grade[temp[i]])
         else:
             if i == x - 1:
                 print(0)
             else:
-                print(0, end=' ')
+                print(0, end=" ")
+
+
+def test_1073():
+    n, m = input().split()
+    n = int(n)
+    m = int(m)
+    questions = []
+    students = []
+    scores = [ 0 for _ in range(n)]
+    for i in range(m):
+        questions.append(input().split())
+    for i in range(n):
+        students.append(input())
+
+    for i in range(n):
+        stu = students[i].split(") (")
+        score = 0
+        for j in range(m):
+            stu[j]=stu[j].replace("(","")
+            stu[j]=stu[j].replace(")", "")
+            s = stu[j].split()
+            if s[0] == questions[j][2] and ( set(questions[j][3:]) - set(s[1:]) ) == ()  :
+                score += int(questions[j][0])
+            elif s[0] >  questions[j][2]  :
+                score += 0
+            elif s[0] <= questions[j][2]:
+                pass
+
+
+
+
+
+    print(questions)
+    print(students)
+
+# 能不能好好认真审题呀
+def test_1067():
+    r_pw , n = input().split()
+    n = int(n)
+    i = 0
+    while True:
+        s = input()
+        if s == "#":
+            break
+        else:
+            i += 1
+            if i <= n:
+                if r_pw != s:
+                    print("Wrong password: %s" % s)
+                else:
+                    print("Welcome in")
+                    break
+                if i == n:
+                    print("Account locked")
+                    break
+
+
+
+def test_1044():
+    n = int(input())
+    all = []
+    low = ["tret","jan", "feb", "mar", "apr", "may", "jun", "jly", "aug", "sep", "oct", "nov", "dec"]
+    high = ["tam", "hel", "maa", "huh", "tou", "kes", "hei", "elo", "syy", "lok", "mer", "jou"]
+    for i in range(n):
+        all.append(input())
+    for hh in all:
+
+        if hh.isdigit():
+            res = []
+            hh = int(hh)
+            if hh >= 13 :
+                res.append(high[hh // 13 - 1])
+                if hh % 13 != 0:
+                    res.append(low[hh % 13])
+            else:
+                res.append(low[hh])
+            print(" ".join(res))
+
+        else:
+            total = 0
+            for i in hh.split():
+                if i in high:
+                    total += (high.index(i) + 1)*13
+                else:
+                    total += low.index(i)
+            print(total)
+
+def test_1047():
+    n = int(input())
+    dic = {}
+    for i in range(n):
+        a, b = input().split()
+        b = int(b)
+        a = a.split("-")[0]
+        dic[a] = dic.setdefault(a,0) + b
+    res = sorted(dic.items(), key=lambda x:x[1], reverse=True)[0]
+    for i,v in enumerate(res):
+        if i == 0:
+            print(v, end=" ")
+        else:
+            print(v)
+
+
+def test_1082():
+    n = int(input())
+    dic = {}
+    for i in range(n):
+        id, a, b = input().split()
+        a = abs(int(a))
+        b = abs(int(b))
+        dic[id] = dic.setdefault(id,0) + a*b
+    res = sorted(dic.items(), key=lambda x:x[1])
+    min_ = res[-1][0]
+    max_ = res[0][0]
+    print(max_,min_)
+
+def test_1083():
+    n = int(input())
+    all  = [_ for _ in range(1, n+1)]
+    s = list(map(int,input().split()))
+    dic = {}
+    for i in range(n):
+        tmp = abs(all[i] - s[i])
+        dic[tmp] = dic.setdefault(tmp, 0) + 1
+    res = sorted(dic.items(),key=lambda x:x[0],reverse=True)
+    for i in res:
+        if i[1] > 1:
+            print(i[0], i[1])
+
+def test_1084():
+    pass
+
+def test_1069():
+    # m 是总转化量 n间隔 s序号
+    pass
+
+
+
+
+
+
+
 
 
 def test_1039():
@@ -654,6 +979,10 @@ def test_zsyh_2():
 
 
 start_time = time.time()
+<<<<<<< HEAD
 test_zsyh_2()
+=======
+test_1069()
+>>>>>>> 5dd850101801808ca9cdc0313d2f988ba4b9832c
 end_time = time.time()
 print((end_time - start_time))
