@@ -1013,8 +1013,82 @@ def test_1059():
 
 
 
+def test_1039():
+    s = input()
+    real = input()
+    dic = {}
+    dic_s = {}
+    res = 0
+    lack = 0
+    for i in real:
+        dic[i] = dic.setdefault(i, 0) + 1
+    for i in s:
+        dic_s[i] = dic_s.setdefault(i, 0) + 1
+    s_keys = dic_s.keys()
+    keys = dic.keys()
+    for k, v in dic.items():
+        if k in s_keys:
+            temp = dic_s[k]
+            if temp >= v:
+                res += (temp - v)
+            else:
+                lack += (v - temp)
+        else:
+            lack += v
+    for k, v in dic_s.items():
+        if k not in keys:
+            res += v
+    if lack > 0:
+        print("No %d" % lack)
+    else:
+        print("Yes %d" % res)
+
+
+def test_1043():
+    s = input()
+    seq = "PATest"
+    a = []
+    for i in seq:
+        a.append(s.count(i))
+
+
+# 1,2,3,4组成4位不同的数字
+def test_zsyh_1():
+    cnt = 0
+    for i in range(1, 5):
+        for j in range(1, 5):
+            for k in range(1, 5):
+                for l in range(1, 5):
+                    if i != j and j != k and k != l and i != l and i != k and j != l:
+                        print("%d%d%d%d" % (i, j, k, l))
+                        cnt += 1
+    print("cnt=", cnt)
+
+
+def test_zsyh_2():
+    a = ['0', '1', 'ABC', 'DEF', 'HI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ']
+    n = input()
+    res = []
+    for i in n:
+        res.append(a[int(i)])
+    len_s = len(res)
+    ss = []
+    for i in range(len_s):
+        temp = []
+        if i == 0:
+            for s in res[i]:
+                temp.append(s)
+        else:
+            for j in ss:
+                for k in res[i]:
+                    temp.append(j+k)
+        ss = temp
+    print(ss)
+
+
+
+
 start_time = time.time()
 #print(find_prime(8888))
-test_1032()
 end_time = time.time()
 print((end_time - start_time))
