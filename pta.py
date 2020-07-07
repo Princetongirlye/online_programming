@@ -162,32 +162,36 @@ def test_1012():
 
 # 1013 数素数 -- 测试点第四个运行超时
 def test_1013():
-    import math
     m, n = input().split()
+    m = int(m)
+    n = int(n)
     x = []
     flag = True
     k = 0
     i = 2
     while flag:
-        for j in range(2, int(math.sqrt(i)) + 1):
-            if i % j == 0:
-                break
+        if i !=2 and i % 2 == 0:
+            pass
         else:
-            x.append(i)
-        if len(x) == int(n):
+            for j in range(3, int(i**0.5) + 1,  2):
+                if i % j == 0:
+                    break
+            else:
+                x.append(i)
+        if len(x) == n:
             flag = False
-            break
         i += 1
-    if int(m) == int(n):
-        print(x[int(m) - 1])
+
+    if m == n:
+        print(x[m - 1])
     else:
         j = 0
         print(x)
-        for i in x[int(m) - 1:]:
+        for i in x[m - 1:]:
             j += 1
             if j % 10 == 0:
                 print(i)
-            elif j != int(n) - int(m) + 1:
+            elif j != n - m + 1:
                 print(i, end=" ")
             else:
                 print(i)
@@ -361,14 +365,14 @@ def test_1027():
 # 1032  运行超时
 def test_1032():
     n = int(input())
-    all = [0 for _ in range(0, 100000)]
+    all = {}
     for i in range(n):
         a, b = input().split()
-        a = int(a) - 1
         b = int(b)
-        all[a] += b
-    max_ = max(all)
-    print(all.index(max_) + 1, max_)
+        all[a] = all.setdefault(a, 0) + b
+    max_ = sorted(all.items(), key=lambda x:x[1], reverse=True)[0]
+    print(max_[0], max_[1])
+    #print(all.index(max_) + 1, max_)
 
     # for i in range(n):
     #     code, score = map(int, input().split())
@@ -550,7 +554,6 @@ def test_1051():
         print("%.2lfi" % bb)
 
 
-
 # 用set不会超时
 def test_1087():
     n = int(input())
@@ -716,15 +719,12 @@ def test_1072():
             if j in m_code:
                 dic.setdefault(s[0], [])
                 dic[s[0]].append(j)
-    i , j = 0,0
+    i, j = 0, 0
     for key, value in dic.items():
-        print(key + ": "+" ".join(value))
+        print(key + ": " + " ".join(value))
         i += 1
         j += len(value)
-    print(i,j)
-
-
-
+    print(i, j)
 
 
 # 用count会增加用时？！
@@ -767,7 +767,7 @@ def test_1073():
     m = int(m)
     questions = []
     students = []
-    scores = [ 0 for _ in range(n)]
+    scores = [0 for _ in range(n)]
     for i in range(m):
         questions.append(input().split())
     for i in range(n):
@@ -777,26 +777,23 @@ def test_1073():
         stu = students[i].split(") (")
         score = 0
         for j in range(m):
-            stu[j]=stu[j].replace("(","")
-            stu[j]=stu[j].replace(")", "")
+            stu[j] = stu[j].replace("(", "")
+            stu[j] = stu[j].replace(")", "")
             s = stu[j].split()
-            if s[0] == questions[j][2] and ( set(questions[j][3:]) - set(s[1:]) ) == ()  :
+            if s[0] == questions[j][2] and (set(questions[j][3:]) - set(s[1:])) == ():
                 score += int(questions[j][0])
-            elif s[0] >  questions[j][2]  :
+            elif s[0] > questions[j][2]:
                 score += 0
             elif s[0] <= questions[j][2]:
                 pass
 
-
-
-
-
     print(questions)
     print(students)
 
+
 # 能不能好好认真审题呀
 def test_1067():
-    r_pw , n = input().split()
+    r_pw, n = input().split()
     n = int(n)
     i = 0
     while True:
@@ -816,11 +813,10 @@ def test_1067():
                     break
 
 
-
 def test_1044():
     n = int(input())
     all = []
-    low = ["tret","jan", "feb", "mar", "apr", "may", "jun", "jly", "aug", "sep", "oct", "nov", "dec"]
+    low = ["tret", "jan", "feb", "mar", "apr", "may", "jun", "jly", "aug", "sep", "oct", "nov", "dec"]
     high = ["tam", "hel", "maa", "huh", "tou", "kes", "hei", "elo", "syy", "lok", "mer", "jou"]
     for i in range(n):
         all.append(input())
@@ -829,7 +825,7 @@ def test_1044():
         if hh.isdigit():
             res = []
             hh = int(hh)
-            if hh >= 13 :
+            if hh >= 13:
                 res.append(high[hh // 13 - 1])
                 if hh % 13 != 0:
                     res.append(low[hh % 13])
@@ -841,10 +837,11 @@ def test_1044():
             total = 0
             for i in hh.split():
                 if i in high:
-                    total += (high.index(i) + 1)*13
+                    total += (high.index(i) + 1) * 13
                 else:
                     total += low.index(i)
             print(total)
+
 
 def test_1047():
     n = int(input())
@@ -853,9 +850,9 @@ def test_1047():
         a, b = input().split()
         b = int(b)
         a = a.split("-")[0]
-        dic[a] = dic.setdefault(a,0) + b
-    res = sorted(dic.items(), key=lambda x:x[1], reverse=True)[0]
-    for i,v in enumerate(res):
+        dic[a] = dic.setdefault(a, 0) + b
+    res = sorted(dic.items(), key=lambda x: x[1], reverse=True)[0]
+    for i, v in enumerate(res):
         if i == 0:
             print(v, end=" ")
         else:
@@ -869,27 +866,30 @@ def test_1082():
         id, a, b = input().split()
         a = abs(int(a))
         b = abs(int(b))
-        dic[id] = dic.setdefault(id,0) + a*b
-    res = sorted(dic.items(), key=lambda x:x[1])
+        dic[id] = dic.setdefault(id, 0) + a * b
+    res = sorted(dic.items(), key=lambda x: x[1])
     min_ = res[-1][0]
     max_ = res[0][0]
-    print(max_,min_)
+    print(max_, min_)
+
 
 def test_1083():
     n = int(input())
-    all  = [_ for _ in range(1, n+1)]
-    s = list(map(int,input().split()))
+    all = [_ for _ in range(1, n + 1)]
+    s = list(map(int, input().split()))
     dic = {}
     for i in range(n):
         tmp = abs(all[i] - s[i])
         dic[tmp] = dic.setdefault(tmp, 0) + 1
-    res = sorted(dic.items(),key=lambda x:x[0],reverse=True)
+    res = sorted(dic.items(), key=lambda x: x[0], reverse=True)
     for i in res:
         if i[1] > 1:
             print(i[0], i[1])
 
+
 def test_1084():
     pass
+
 
 def test_1069():
     # m 是总转化量 n间隔 s序号
@@ -909,7 +909,7 @@ def test_1078():
                 cnt += 1
             else:
                 if cnt > 1:
-                    res += str(cnt) +tag
+                    res += str(cnt) + tag
                 else:
                     res += tag
                 tag = i
@@ -919,7 +919,7 @@ def test_1078():
         else:
             res += tag
 
-    elif flag=="D":
+    elif flag == "D":
         for i in s:
             if i.isdigit():
                 tag += i
@@ -934,12 +934,9 @@ def test_1078():
     print(res)
 
 
-
-
-
-
 def test_1059():
     pass
+
 
 # 认真审题啊
 def test_1079():
@@ -954,7 +951,7 @@ def test_1079():
         c = str(int(a) + int(b))
         print("{} + {} = {}".format(a, b, c))
         if c == c[::-1]:
-            print(c,"is a palindromic number.")
+            print(c, "is a palindromic number.")
             flag = False
             break
         else:
@@ -967,11 +964,57 @@ def test_1079():
 
 
 
+def find_prime(num):
+    if num != 1 and num != 2 and num % 2 == 0:
+        return False
+    else:
+        flg = 1
+        for i in range(3, int(num ** 0.5)+1, 2):
+            if num % i == 0:
+                flg = 0
+                break
+        return flg
+def test_1059():
+    n = int(input())
+    res = {}
+    for i in range(n):
+        name = input()
+        res[name] = i + 1
+    m = int(input())
+    quries = []
+    for i in range(m):
+        quries.append(input())
+    for q in quries:
+        if q in res:
+            rank = res[q]
+            if rank == 1:
+                out="Mystery Award"
+            elif rank == -1:
+                out = "Checked"
+            elif find_prime(rank):
+                out = "Minion"
+            else:
+                out="Chocolate"
+            res[q] = -1
+        else:
+            out = "Are you kidding?"
+        print("%s: %s" % (q, out))
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 start_time = time.time()
-test_1079()
+#print(find_prime(8888))
+test_1032()
 end_time = time.time()
 print((end_time - start_time))
