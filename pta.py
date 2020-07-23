@@ -1088,7 +1088,30 @@ def test_zsyh_2():
 
 
 
-start_time = time.time()
-#print(find_prime(8888))
-end_time = time.time()
-print((end_time - start_time))
+# start_time = time.time()
+
+# #print(find_prime(8888))
+# end_time = time.time()
+# print((end_time - start_time))
+
+
+
+
+n = int(input())
+
+for i in range(2, n):
+    t1 = 0
+    t2 = 0
+    for j in range(2, int(i**0.5)+1):
+        if i % j == 0:
+            break
+    else:
+        t1 = i
+        t2 = n - t1
+
+        for k in range(2, int(t2 ** 0.5)+1):
+            if t2 % k == 0:
+                break
+        else:
+            print("{} = {} + {}".format(n, t1, t2))
+            break

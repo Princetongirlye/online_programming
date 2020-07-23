@@ -55,17 +55,3 @@ print(s.isValid("()[]{}"))
 
 
 
-
-
-
-
-
-
-
-
-
-s = Solution()
-print(s.isPalindrome(-121))
-
-
-
